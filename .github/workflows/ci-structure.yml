@@ -1,0 +1,27 @@
+name: CI - Validación de estructura
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-structure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Revisar estructura del proyecto
+        run: |
+          echo "Validando estructura del Sistema de Venta..."
+          test -d src
+          test -d nbproject
+          test -d librerias
+          test -f build.xml
+          test -f manifest.mf
+          test -f venta.sql
+          test -f README.md
+          echo "La estructura del repositorio es correcta."

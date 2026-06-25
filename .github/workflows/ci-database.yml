@@ -1,0 +1,27 @@
+name: CI - Validación de base de datos
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-database:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar archivo venta.sql
+        run: |
+          echo "Verificando archivo de base de datos..."
+          test -f venta.sql
+          echo "Archivo venta.sql encontrado."
+
+      - name: Revisar instrucciones SQL básicas
+        run: |
+          grep -i "CREATE" venta.sql
+          grep -i "TABLE" venta.sql
+          echo "El archivo venta.sql contiene estructura de base de datos."
